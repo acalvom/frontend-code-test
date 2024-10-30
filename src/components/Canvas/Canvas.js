@@ -1,10 +1,11 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useRef } from 'react'
 
 import { observer } from 'mobx-react'
-import Box from '../components/Box'
-import { getCursorPosition } from '../utils/getCursorPosition'
+import Box from '../Box/Box'
+import { getCursorPosition } from '../../utils/getCursorPosition'
+import './Canvas.css'
 
-function Canvas ({ store }) {
+function Canvas({ store }) {
   const canvasRef = useRef(null)
 
   const handleClick = (event) => {
@@ -13,7 +14,7 @@ function Canvas ({ store }) {
   }
 
   return (
-    <div className="canva" onClick={handleClick} ref={canvasRef}>
+    <div className="canvas" onClick={handleClick} ref={canvasRef}>
       {store.boxes.map((box, index) => (
         <Box
           id={box.id}
