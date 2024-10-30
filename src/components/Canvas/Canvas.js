@@ -1,20 +1,25 @@
 import React, { useRef } from 'react'
 
 import { observer } from 'mobx-react'
-import Box from '../Box/Box'
+import { Box } from '../Box/Box'
 import { getCursorPosition } from '../../utils/getCursorPosition'
 import './Canvas.css'
 
 function Canvas({ store }) {
   const canvasRef = useRef(null)
 
-  const handleClick = (event) => {
+  const handleClickOnCanvas = (event) => {
     const { x, y } = getCursorPosition(event, canvasRef.current)
     store.cursorPosition.setCursorPosition(x, y)
   }
 
+  const handleClickOnBox = (event, box) => {
+    event.stopPropagation()
+    store.selectBox(box)
+  }
+
   return (
-    <div className="canvas" onClick={handleClick} ref={canvasRef}>
+    <div className="canvas" onClick={handleClickOnCanvas} ref={canvasRef}>
       {store.boxes.map((box, index) => (
         <Box
           id={box.id}
@@ -25,7 +30,8 @@ function Canvas({ store }) {
           width={box.width}
           height={box.height}
           box={box}
-          onClick={() => store.setSelectedBox(box)}
+          onClick={(event) => handleClickOnBox(event, box)}
+          isSelected={store.selectedBox && store.selectedBox.id === box.id}
         />
       ))}
     </div>
