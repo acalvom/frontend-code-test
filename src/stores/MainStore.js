@@ -1,6 +1,6 @@
 import { types } from 'mobx-state-tree'
 import uuid from 'uuid/v4'
-import BoxModel from './models/Box'
+import { BoxModel } from './models/Box'
 import getRandomColor from '../utils/getRandomColor'
 import CursorPointerModel from './models/CursorPointer'
 

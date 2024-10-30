@@ -5,13 +5,12 @@ import store from '../stores/MainStore'
 
 function Toolbar() {
   const handleAddButton = () => {
-    console.log('Add button clicked')
     const cursorPosition = store.cursorPosition
     const box = {
       id: uuid(),
       color: getRandomColor(),
       left: cursorPosition.x,
-      top: cursorPosition.y,
+      top: cursorPosition.y
     }
     store.addBox(box)
   }
