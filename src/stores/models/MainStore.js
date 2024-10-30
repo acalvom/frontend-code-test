@@ -1,7 +1,7 @@
 import { types } from 'mobx-state-tree'
-import { CursorPointerModel } from './models/CursorPointer'
-import { BoxModel } from './models/Box'
-import { createBox } from './utils/createBox'
+import { CursorPointerModel } from './CursorPointer'
+import { BoxModel } from './Box'
+import { createBox } from '../utils/createBox'
 
 const MainStore = types
   .model('MainStore', {
@@ -15,6 +15,7 @@ const MainStore = types
       self.boxes.push(newBox)
     },
     removeBox(box) {
+      if (self.selectedBox === box) this.clearSelection()
       self.boxes.remove(box)
     },
     selectBox(box) {
@@ -25,8 +26,4 @@ const MainStore = types
     },
   }))
 
-const store = MainStore.create()
-
-store.addBox(0, 0)
-
-export default store
+export const createMainStore = () => MainStore.create()
