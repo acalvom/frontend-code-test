@@ -1,11 +1,11 @@
 import React from 'react'
-import store from '../../stores/MainStore'
+
 import { observer } from 'mobx-react'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import './Toolbar.css'
 
-export const Toolbar = observer(() => {
+export const Toolbar = observer(({ store }) => {
   const handleAddButton = () => {
     const { x, y } = store.cursorPosition
     store.addBox(x, y)

@@ -1,15 +1,15 @@
 import React from 'react'
+import { observer } from 'mobx-react'
 
-import store from '../../stores/MainStore'
 import Canvas from '../../components/Canvas/Canvas'
 import { Toolbar } from '../../components/Toolbar/Toolbar'
-import { observer } from 'mobx-react'
+import { store } from '../../stores/store'
 import './Home.css'
 
 export const Home = observer(() => {
   return (
     <div className="home">
-      <Toolbar />
+      <Toolbar store={store} />
       <Canvas store={store} />
     </div>
   )
