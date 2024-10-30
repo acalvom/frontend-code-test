@@ -4,12 +4,12 @@ import { observer } from 'mobx-react'
 import Box from '../components/Box'
 import { getCursorPosition } from '../utils/getCursorPosition'
 
-function Canvas({ store }) {
+function Canvas ({ store }) {
   const canvasRef = useRef(null)
 
   const handleClick = (event) => {
     const { x, y } = getCursorPosition(event, canvasRef.current)
-    store.setCursorPosition(x, y)
+    store.cursorPosition.setCursorPosition(x, y)
   }
 
   return (
