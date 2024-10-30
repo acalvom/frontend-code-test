@@ -1,33 +1,33 @@
 import React from 'react'
-import getRandomColor from '../utils/getRandomColor'
-import uuid from 'uuid/v4'
 import store from '../stores/MainStore'
+import { observer } from 'mobx-react'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
-function Toolbar () {
+export const Toolbar = observer(() => {
   const handleAddButton = () => {
-    const cursorPosition = store.cursorPosition
-    const box = {
-      id: uuid(),
-      color: getRandomColor(),
-      left: cursorPosition.x,
-      top: cursorPosition.y
-    }
-    store.addBox(box)
+    const { x, y } = store.cursorPosition
+    store.addBox(x, y)
   }
 
   const handleRemoveButton = () => {
-    const lastBox = store.boxes[store.boxes.length - 1]
+    const lastBoxIndex = store.boxes.length - 1
+    if (lastBoxIndex < 0) {
+      toast('No more boxes to remove')
+      return
+    }
+
+    const lastBox = store.boxes[lastBoxIndex]
     store.removeBox(lastBox)
   }
 
   return (
     <div className="toolbar">
+      <ToastContainer />
       <button onClick={handleAddButton}>Add Box</button>
       <button onClick={handleRemoveButton}>Remove Box</button>
       <input type="color" />
       <span>No boxes selected</span>
     </div>
   )
-}
-
-export default Toolbar
+})
