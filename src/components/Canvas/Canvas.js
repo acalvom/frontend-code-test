@@ -8,18 +8,19 @@ import './Canvas.css'
 function Canvas({ store }) {
   const canvasRef = useRef(null)
 
-  const handleClickOnCanvas = (event) => {
+  const handleCursorPosition = (event) => {
     const { x, y } = getCursorPosition(event, canvasRef.current)
     store.cursorPosition.setCursorPosition(x, y)
   }
 
-  const handleClickOnBox = (event, box) => {
+  const handleSelectBox = (event, box) => {
     event.stopPropagation()
-    store.selectBox(box)
+    if (store.selectBox) box.isSelected ? store.clearSelection() : store.selectBox(box)
+    else store.clearSelection()
   }
 
   return (
-    <div className="canvas" onClick={handleClickOnCanvas} ref={canvasRef}>
+    <div className="canvas" onClick={handleCursorPosition} ref={canvasRef}>
       {store.boxes.map((box, index) => (
         <Box
           id={box.id}
@@ -30,8 +31,8 @@ function Canvas({ store }) {
           width={box.width}
           height={box.height}
           box={box}
-          onClick={(event) => handleClickOnBox(event, box)}
-          isSelected={store.selectedBox && store.selectedBox.id === box.id}
+          isSelected={box.isSelected}
+          onClick={(event) => handleSelectBox(event, box)}
         />
       ))}
     </div>
