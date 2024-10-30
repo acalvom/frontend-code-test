@@ -3,7 +3,7 @@ import getRandomColor from '../utils/getRandomColor'
 import uuid from 'uuid/v4'
 import store from '../stores/MainStore'
 
-function Toolbar() {
+function Toolbar () {
   const handleAddButton = () => {
     const cursorPosition = store.cursorPosition
     const box = {
@@ -14,10 +14,16 @@ function Toolbar() {
     }
     store.addBox(box)
   }
+
+  const handleRemoveButton = () => {
+    const lastBox = store.boxes[store.boxes.length - 1]
+    store.removeBox(lastBox)
+  }
+
   return (
     <div className="toolbar">
       <button onClick={handleAddButton}>Add Box</button>
-      <button>Remove Box</button>
+      <button onClick={handleRemoveButton}>Remove Box</button>
       <input type="color" />
       <span>No boxes selected</span>
     </div>
