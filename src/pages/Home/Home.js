@@ -1,8 +1,7 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 
-import Canvas from '../../components/Canvas/Canvas'
-import { Toolbar } from '../../components/Toolbar/Toolbar'
+import { Canvas, Toolbar } from '../../components'
 import { store } from '../../stores/store'
 import './Home.css'
 

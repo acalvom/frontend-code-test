@@ -2,10 +2,10 @@ import React, { useRef } from 'react'
 
 import { observer } from 'mobx-react'
 import { Box } from '../Box/Box'
-import { getCursorPosition } from '../../utils/getCursorPosition'
+import { getCursorPosition } from '../../utils'
 import './Canvas.css'
 
-function Canvas({ store }) {
+export const Canvas = observer(({ store }) => {
   const canvasRef = useRef(null)
 
   const handleCursorPosition = (event) => {
@@ -37,6 +37,4 @@ function Canvas({ store }) {
       ))}
     </div>
   )
-}
-
-export default observer(Canvas)
+})

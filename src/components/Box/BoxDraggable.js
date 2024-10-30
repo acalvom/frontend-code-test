@@ -1,7 +1,6 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import box from './Box'
-import getRandomColor from '../../utils/getRandomColor'
+import { getRandomColor } from '../../utils'
 import PropTypes from 'prop-types'
 
 export const BoxDraggable = observer((props) => {
