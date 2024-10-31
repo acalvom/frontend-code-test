@@ -20,7 +20,7 @@ export const Canvas = observer(({ store }) => {
   }
 
   return (
-    <div className="canvas" onClick={handleCursorPosition} ref={canvasRef}>
+    <div className="canvas" aria-label="canvas" onClick={handleCursorPosition} ref={canvasRef}>
       {store.boxes.map((box, index) => (
         <Box
           id={box.id}
