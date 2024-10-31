@@ -1,10 +1,8 @@
 import React from 'react'
 import { Home } from './Home'
-import '@testing-library/jest-dom'
 
-import { cleanup, render, screen, wait } from '@testing-library/react'
+import { cleanup, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import '@testing-library/jest-dom'
 import { Canvas, Toolbar } from '../../components'
 import { storeSetup } from '../../test/storeSetup'
 
@@ -50,7 +48,7 @@ describe('Home', () => {
     expect(box).toBeInTheDocument()
   })
 
-  it('should remove a box in the canvas', () => {
+  it('should remove a box in the canvas', async () => {
     customRender(<Home />)
 
     const canvas = screen.getByLabelText('canvas')
@@ -74,6 +72,9 @@ describe('Home', () => {
     userEvent.click(removeBoxButton)
 
     expect(screen.queryByText('Box 2')).not.toBeInTheDocument()
+
+    const toast = await screen.findByText('The box has been removed successfully')
+    expect(toast).toBeInTheDocument()
   })
 
   it('should remove two boxes in the canvas', () => {
@@ -149,6 +150,7 @@ describe('Home', () => {
     expect(screen.queryByText('Box 1')).not.toBeInTheDocument()
 
     userEvent.click(removeBoxButton)
+
 
     const toast = await screen.findByText('There are no boxes to remove')
     expect(toast).toBeInTheDocument()

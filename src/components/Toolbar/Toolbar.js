@@ -1,8 +1,8 @@
 import React from 'react'
 
 import { observer } from 'mobx-react'
-import { toast, ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer } from 'react-toastify'
+import { showToast } from '../../utils/toastMessages'
 import './Toolbar.css'
 
 export const Toolbar = observer(({ store }) => {
@@ -13,17 +13,14 @@ export const Toolbar = observer(({ store }) => {
   }
 
   const handleRemoveButton = () => {
-    const selectedBox = store.selectedBox
     const noBoxes = store.boxes.length === 0
-    if (noBoxes) {
-      toast('There are no boxes to remove')
-      return
-    }
-    if (!selectedBox ) {
-      toast('No box is selected')
-      return
-    }
+    const selectedBox = store.selectedBox
+
+    if (noBoxes) return showToast('NO_BOXES')
+    if (!selectedBox) return showToast('NO_SELECTED_BOX')
+
     store.removeBox(selectedBox)
+    showToast('REMOVED_BOX')
   }
 
   return (
