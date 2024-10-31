@@ -8,7 +8,8 @@ import './Toolbar.css'
 export const Toolbar = observer(({ store }) => {
   const handleAddButton = () => {
     const { x, y } = store.cursorPosition
-    store.addBox(x, y)
+    const name = `Box ${store.boxes.length + 1}`
+    store.addBox(name, x, y)
   }
 
   const handleRemoveButton = () => {

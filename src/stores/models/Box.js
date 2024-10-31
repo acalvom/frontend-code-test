@@ -3,6 +3,7 @@ import { getParent, hasParent, types } from 'mobx-state-tree'
 export const BoxModel = types
   .model('Box', {
     id: types.identifier,
+    name: types.string,
     width: 200,
     height: 100,
     color: '#FFF000',

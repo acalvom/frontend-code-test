@@ -10,8 +10,8 @@ const MainStore = types
     selectedBox: types.maybeNull(types.reference(BoxModel)),
   })
   .actions((self) => ({
-    addBox(left, top) {
-      const newBox = createBox(left, top)
+    addBox(name, left, top) {
+      const newBox = createBox({ name, left, top })
       self.boxes.push(newBox)
     },
     removeBox(box) {
