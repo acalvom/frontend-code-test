@@ -1,15 +1,21 @@
-import { types } from "mobx-state-tree";
+import { getParent, hasParent, types } from 'mobx-state-tree'
 
-const BoxModel = types
-  .model("Box", {
+export const BoxModel = types
+  .model('Box', {
     id: types.identifier,
+    name: types.string,
     width: 200,
     height: 100,
-    color: "#FFF000",
+    color: '#FFF000',
     left: 200,
-    top: 100
+    top: 100,
   })
-  .views(self => ({}))
-  .actions(self => ({}));
+  .views((self) => ({
+    get isSelected() {
+      if (!hasParent(self)) return false
+      const mainStore = getParent(self, 2)
 
-export default BoxModel;
+      return mainStore.selectedBox === self
+    },
+  }))
+  .actions((self) => ({}))
