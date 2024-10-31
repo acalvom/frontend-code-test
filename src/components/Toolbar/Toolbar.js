@@ -13,14 +13,17 @@ export const Toolbar = observer(({ store }) => {
   }
 
   const handleRemoveButton = () => {
-    const lastBoxIndex = store.boxes.length - 1
-    if (lastBoxIndex < 0) {
-      toast('No more boxes to remove')
+    const selectedBox = store.selectedBox
+    const noBoxes = store.boxes.length === 0
+    if (noBoxes) {
+      toast('There are no boxes to remove')
       return
     }
-
-    const lastBox = store.boxes[lastBoxIndex]
-    store.removeBox(lastBox)
+    if (!selectedBox ) {
+      toast('No box is selected')
+      return
+    }
+    store.removeBox(selectedBox)
   }
 
   return (
