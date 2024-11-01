@@ -1,19 +1,13 @@
-
 .toolbar {
-    position: fixed;
-    top: 0;
-    left: 0;
+    position: relative;
     display: flex;
     padding: 1rem 0.5rem;
     gap: 1rem;
     border: 2px dashed #b4b4b4;
+    background: #585858;
     border-radius: 1rem;
-    margin: 0.5rem;
+    margin: 1rem;
     align-items: center;
-}
-
-.toolbar span {
-    color: white;
 }
 
 .toolbar button {
@@ -32,4 +26,31 @@
 
 .toolbar button:hover {
     background-color: #b4b4b4;
+}
+
+.toolbar input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 35px;
+    height: 35px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.toolbar input::-webkit-color-swatch {
+    border-radius: 5px;
+    border: none;
+}
+
+.toolbar input:disabled {
+    cursor: not-allowed;
+}
+
+.toolbar span {
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-right: 0.5rem;
 }
