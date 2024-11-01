@@ -1,8 +1,7 @@
 import React from 'react'
-import { Home } from './Home'
-
 import { cleanup, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { Home } from './Home'
 import { Canvas, Toolbar } from '../../components'
 import { storeSetup } from '../../test/storeSetup'
 
@@ -151,8 +150,18 @@ describe('Home', () => {
 
     userEvent.click(removeBoxButton)
 
-
     const toast = await screen.findByText('There are no boxes to remove')
     expect(toast).toBeInTheDocument()
+  })
+
+  it('should disable color picker when no box is selected', async () => {
+    customRender(<Home />)
+
+    const canvas = screen.getByLabelText('canvas')
+    expect(canvas).toBeInTheDocument()
+
+    const colorInput = screen.getByRole('textbox', { type: 'color' })
+    expect(colorInput).toBeInTheDocument()
+    expect(colorInput).not.toBeEnabled()
   })
 })
