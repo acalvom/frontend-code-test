@@ -6,7 +6,7 @@ import { Canvas, Toolbar } from '../../components'
 import { storeSetup } from '../../test/storeSetup'
 
 function customRender(ui, { initialState, ...renderOptions } = {}) {
-  const store = storeSetup()
+  const store = storeSetup(initialState)
 
   function Wrapper() {
     return (
@@ -21,7 +21,10 @@ function customRender(ui, { initialState, ...renderOptions } = {}) {
 }
 
 describe('Home', () => {
-  afterEach(() => cleanup())
+  afterEach(() => {
+    localStorage.clear()
+    cleanup()
+  })
 
   it('should display a single box', () => {
     customRender(<Home />)

@@ -1,7 +1,7 @@
 import { types } from 'mobx-state-tree'
 import { CursorPointerModel } from './CursorPointer'
 import { BoxModel } from './Box'
-import { createBox } from '../utils/createBox'
+import { MainStoreActions } from '../actions/MainStoreActions'
 
 const MainStore = types
   .model('MainStore', {
@@ -9,21 +9,18 @@ const MainStore = types
     cursorPosition: types.optional(CursorPointerModel, { x: 0, y: 0 }),
     selectedBox: types.maybeNull(types.reference(BoxModel)),
   })
-  .actions((self) => ({
-    addBox(name, left, top) {
-      const newBox = createBox({ name, left, top })
-      self.boxes.push(newBox)
-    },
-    removeBox(box) {
-      if (self.selectedBox === box) this.clearSelection()
-      self.boxes.remove(box)
-    },
-    selectBox(box) {
-      self.selectedBox = box
-    },
-    clearSelection() {
-      self.selectedBox = null
-    },
-  }))
+
+  .actions((self) => {
+    const actions = MainStoreActions(self)
+    const { setupActionListener, initializeStore } = actions
+
+    return {
+      ...actions,
+      afterCreate() {
+        initializeStore()
+        setupActionListener()
+      },
+    }
+  })
 
 export const createMainStore = () => MainStore.create()
