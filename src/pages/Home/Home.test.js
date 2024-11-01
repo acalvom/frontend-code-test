@@ -68,14 +68,14 @@ describe('Home', () => {
 
     userEvent.dblClick(box)
 
-    const removeBoxButton = screen.getByText('Remove Box')
+    const removeBoxButton = screen.getByText('Remove Boxes')
     expect(removeBoxButton).toBeInTheDocument()
 
     userEvent.click(removeBoxButton)
 
     expect(screen.queryByText('Box 2')).not.toBeInTheDocument()
 
-    const toast = await screen.findByText('The box has been removed successfully')
+    const toast = await screen.findByText('Selected boxes have been removed successfully')
     expect(toast).toBeInTheDocument()
   })
 
@@ -98,7 +98,7 @@ describe('Home', () => {
     const box2 = screen.getByText('Box 2')
     expect(box2).toBeInTheDocument()
 
-    const removeBoxButton = screen.getByText('Remove Box')
+    const removeBoxButton = screen.getByText('Remove Boxes')
     expect(removeBoxButton).toBeInTheDocument()
 
     userEvent.dblClick(box1)
@@ -110,6 +110,40 @@ describe('Home', () => {
     userEvent.click(removeBoxButton)
 
     expect(screen.queryByText('Box 2')).not.toBeInTheDocument()
+  })
+
+  it('should remove two selected boxes in the canvas', async () => {
+    customRender(<Home />)
+
+    const canvas = screen.getByLabelText('canvas')
+    expect(canvas).toBeInTheDocument()
+
+    const box1 = screen.getByText('Box 1')
+    expect(box1).toBeInTheDocument()
+
+    userEvent.dblClick(box1)
+    userEvent.click(canvas)
+
+    const addBoxButton = screen.getByText('Add Box')
+    expect(addBoxButton).toBeInTheDocument()
+
+    userEvent.click(addBoxButton)
+
+    const box2 = screen.getByText('Box 2')
+    expect(box2).toBeInTheDocument()
+
+    userEvent.dblClick(box2)
+
+    const removeBoxButton = screen.getByText('Remove Boxes')
+    expect(removeBoxButton).toBeInTheDocument()
+
+    userEvent.click(removeBoxButton)
+
+    expect(screen.queryByText('Box 1')).not.toBeInTheDocument()
+    expect(screen.queryByText('Box 2')).not.toBeInTheDocument()
+
+    const toast = await screen.findByText('Selected boxes have been removed successfully')
+    expect(toast).toBeInTheDocument()
   })
 
   it('should display a message when no box is selected', async () => {
@@ -125,12 +159,12 @@ describe('Home', () => {
 
     userEvent.click(addBoxButton)
 
-    const removeBoxButton = screen.getByText('Remove Box')
+    const removeBoxButton = screen.getByText('Remove Boxes')
     expect(removeBoxButton).toBeInTheDocument()
 
     userEvent.click(removeBoxButton)
 
-    const toast = await screen.findByText('No box is selected')
+    const toast = await screen.findByText('No boxes are selected')
     expect(toast).toBeInTheDocument()
   })
 
@@ -143,7 +177,7 @@ describe('Home', () => {
     const box1 = screen.getByText('Box 1')
     expect(box1).toBeInTheDocument()
 
-    const removeBoxButton = screen.getByText('Remove Box')
+    const removeBoxButton = screen.getByText('Remove Boxes')
     expect(removeBoxButton).toBeInTheDocument()
 
     userEvent.dblClick(box1)
