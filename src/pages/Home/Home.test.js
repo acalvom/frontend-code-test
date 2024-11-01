@@ -64,7 +64,7 @@ describe('Home', () => {
     const box = screen.getByText('Box 2')
     expect(box).toBeInTheDocument()
 
-    userEvent.click(box)
+    userEvent.dblClick(box)
 
     const removeBoxButton = screen.getByText('Remove Box')
     expect(removeBoxButton).toBeInTheDocument()
@@ -99,12 +99,12 @@ describe('Home', () => {
     const removeBoxButton = screen.getByText('Remove Box')
     expect(removeBoxButton).toBeInTheDocument()
 
-    userEvent.click(box1)
+    userEvent.dblClick(box1)
     userEvent.click(removeBoxButton)
 
     expect(screen.queryByText('Box 1')).not.toBeInTheDocument()
 
-    userEvent.click(screen.getByText('Box 2'))
+    userEvent.dblClick(screen.getByText('Box 2'))
     userEvent.click(removeBoxButton)
 
     expect(screen.queryByText('Box 2')).not.toBeInTheDocument()
@@ -144,7 +144,7 @@ describe('Home', () => {
     const removeBoxButton = screen.getByText('Remove Box')
     expect(removeBoxButton).toBeInTheDocument()
 
-    userEvent.click(box1)
+    userEvent.dblClick(box1)
     userEvent.click(removeBoxButton)
 
     expect(screen.queryByText('Box 1')).not.toBeInTheDocument()
