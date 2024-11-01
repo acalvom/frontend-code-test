@@ -1,7 +1,7 @@
-import { types } from 'mobx-state-tree'
+import { onAction, types } from 'mobx-state-tree'
 import { CursorPointerModel } from './CursorPointer'
 import { BoxModel } from './Box'
-import { createBox } from '../utils/createBox'
+import { createBox } from '../actions/BoxActions'
 
 const MainStore = types
   .model('MainStore', {
@@ -23,6 +23,28 @@ const MainStore = types
     },
     clearSelection() {
       self.selectedBox = null
+    },
+    saveToLocalStorage() {
+      localStorage.setItem('mainStore', JSON.stringify(self))
+    },
+  }))
+  .actions((self) => ({
+    afterCreate() {
+      const savedState = localStorage.getItem('mainStore')
+      if (!savedState) {
+        self.addBox('Box 1', 0, 0)
+      } else {
+        const parsedState = JSON.parse(savedState)
+        self.boxes.replace(parsedState.boxes)
+        self.cursorPosition = parsedState.cursorPosition
+        self.selectedBox = parsedState.selectedBox
+      }
+
+      onAction(self, (call) => {
+        if (call.type !== 'saveToLocalStorage') {
+          self.saveToLocalStorage()
+        }
+      })
     },
   }))
 
