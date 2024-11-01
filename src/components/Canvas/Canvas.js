@@ -32,7 +32,7 @@ export const Canvas = observer(({ store }) => {
           height={box.height}
           box={box}
           isSelected={box.isSelected}
-          onClick={(event) => handleSelectBox(event, box)}
+          onDoubleClick={(event) => handleSelectBox(event, box)}
         />
       ))}
     </div>

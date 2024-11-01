@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { observer } from 'mobx-react'
 import { getRandomColor } from '../../utils'
-import PropTypes from 'prop-types'
+import { useDraggableBox } from '../../hooks'
 
 export const BoxDraggable = observer((props) => {
-  const { id, width, height, color, left, top, isSelected, onClick, children } = props
+  const { id, width, height, color, left, top, isSelected, onDoubleClick, box, children } = props
+  const boxRef = useRef(null)
+
+  useDraggableBox(boxRef, box)
 
   const style = {
     backgroundColor: color,
@@ -15,25 +18,8 @@ export const BoxDraggable = observer((props) => {
   }
 
   return (
-    <div id={id} className="box" onClick={onClick} style={style}>
+    <div id={id} className="box" onDoubleClick={onDoubleClick} style={style} ref={boxRef}>
       {children}
     </div>
   )
 })
-
-BoxDraggable.propTypes = {
-  id: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired,
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
-  left: PropTypes.number.isRequired,
-  top: PropTypes.number.isRequired,
-  isSelected: PropTypes.bool,
-  onClick: PropTypes.func.isRequired,
-  children: PropTypes.node,
-}
-
-BoxDraggable.defaultProps = {
-  isSelected: false,
-  children: null,
-}

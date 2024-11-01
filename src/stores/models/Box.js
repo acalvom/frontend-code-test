@@ -18,4 +18,9 @@ export const BoxModel = types
       return mainStore.selectedBox === self
     },
   }))
-  .actions((self) => ({}))
+  .actions((self) => ({
+    move(left, top) {
+      self.left = left
+      self.top = top
+    },
+  }))
