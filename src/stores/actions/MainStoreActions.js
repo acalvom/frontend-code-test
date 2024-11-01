@@ -1,7 +1,7 @@
 import { getSnapshot, onAction } from 'mobx-state-tree'
 import { createBox } from './BoxActions'
 
-const MainStoreKey = 'MainStore'
+export const MainStoreKey = 'MainStore'
 
 export const MainStoreActions = (self) => {
   const addBox = (name, left, top) => {
@@ -57,7 +57,9 @@ export const MainStoreActions = (self) => {
     removeBox,
     selectBox,
     clearSelection,
+    saveToLocalStorage,
+    loadFromLocalStorage,
     initializeStore,
-    setupActionListener
+    setupActionListener,
   }
 }
