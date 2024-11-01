@@ -1,19 +1,13 @@
-
 .toolbar {
-    position: fixed;
-    top: 0;
-    left: 0;
+    position: relative;
     display: flex;
     padding: 1rem 0.5rem;
     gap: 1rem;
     border: 2px dashed #b4b4b4;
+    background: #585858;
     border-radius: 1rem;
-    margin: 0.5rem;
+    margin: 1rem;
     align-items: center;
-}
-
-.toolbar span {
-    color: white;
 }
 
 .toolbar button {
