@@ -3,14 +3,14 @@ import 'react-toastify/dist/ReactToastify.css'
 
 export const TOAST = {
   NO_BOXES: 'NO_BOXES',
-  NO_SELECTED_BOX: 'NO_SELECTED_BOX',
-  REMOVED_BOX: 'REMOVED_BOX',
+  NO_SELECTED_BOXES: 'NO_SELECTED_BOXES',
+  REMOVED_BOXES: 'REMOVED_BOXES',
 }
 
 const MESSAGES = {
   NO_BOXES: 'There are no boxes to remove',
-  NO_SELECTED_BOX: 'No box is selected',
-  REMOVED_BOX: 'The box has been removed successfully',
+  NO_SELECTED_BOXES: 'No boxes are selected',
+  REMOVED_BOXES: 'Selected boxes have been removed successfully',
 }
 
 export function showToast(key) {

@@ -9,17 +9,23 @@ export const MainStoreActions = (self) => {
     self.boxes.push(newBox)
   }
 
-  const removeBox = (box) => {
-    if (self.selectedBox === box) clearSelection()
-    self.boxes.remove(box)
-  }
-
   const selectBox = (box) => {
-    self.selectedBox = box
+    self.selectedBoxes.push(box)
   }
 
-  const clearSelection = () => {
-    self.selectedBox = null
+  const clearSelection = (box) => {
+    self.selectedBoxes.remove(box)
+  }
+
+  const removeSelection = () => {
+    self.selectedBoxes.slice().forEach((box) => {
+      self.selectedBoxes.remove(box)
+      self.boxes.remove(box)
+    })
+  }
+
+  const setSelectionColor = (color) => {
+    self.selectedBoxes.forEach((box) => box.changeColor(color))
   }
 
   const saveToLocalStorage = () => {
@@ -54,9 +60,10 @@ export const MainStoreActions = (self) => {
 
   return {
     addBox,
-    removeBox,
     selectBox,
     clearSelection,
+    removeSelection,
+    setSelectionColor,
     saveToLocalStorage,
     loadFromLocalStorage,
     initializeStore,
