@@ -28,6 +28,15 @@ export const MainStoreActions = (self) => {
     self.selectedBoxes.forEach((box) => box.changeColor(color))
   }
 
+  const moveSelection = (left, top) => {
+    self.selectedBoxes.forEach((box) => {
+      const boxLeft = box.left + left
+      const boxTop = box.top + top
+
+      box.move(boxLeft, boxTop)
+    })
+  }
+
   const saveToLocalStorage = () => {
     const currentState = getSnapshot(self)
     localStorage.setItem(MainStoreKey, JSON.stringify(currentState))
@@ -64,6 +73,7 @@ export const MainStoreActions = (self) => {
     clearSelection,
     removeSelection,
     setSelectionColor,
+    moveSelection,
     saveToLocalStorage,
     loadFromLocalStorage,
     initializeStore,
