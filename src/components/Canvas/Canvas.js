@@ -15,8 +15,7 @@ export const Canvas = observer(({ store }) => {
 
   const handleSelectBox = (event, box) => {
     event.stopPropagation()
-    if (store.selectBox) box.isSelected ? store.clearSelection() : store.selectBox(box)
-    else store.clearSelection()
+    box.isSelected ? store.clearSelection(box) : store.selectBox(box)
   }
 
   return (

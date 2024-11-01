@@ -7,7 +7,7 @@ const MainStore = types
   .model('MainStore', {
     boxes: types.array(BoxModel),
     cursorPosition: types.optional(CursorPointerModel, { x: 0, y: 0 }),
-    selectedBox: types.maybeNull(types.reference(BoxModel)),
+    selectedBoxes: types.array(types.reference(BoxModel)),
   })
 
   .actions((self) => {
