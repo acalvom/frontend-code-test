@@ -23,4 +23,7 @@ export const BoxModel = types
       self.left = left
       self.top = top
     },
+    changeColor(color) {
+      self.color = color
+    },
   }))

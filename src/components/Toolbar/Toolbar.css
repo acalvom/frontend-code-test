@@ -27,3 +27,30 @@
 .toolbar button:hover {
     background-color: #b4b4b4;
 }
+
+.toolbar input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 35px;
+    height: 35px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.toolbar input::-webkit-color-swatch {
+    border-radius: 5px;
+    border: none;
+}
+
+.toolbar input:disabled {
+    cursor: not-allowed;
+}
+
+.toolbar span {
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-right: 0.5rem;
+}
