@@ -32,14 +32,23 @@ export const Toolbar = observer(({ store }) => {
     store.setSelectionColor(color)
   }
 
-  // TODO handleSelectAllButton       <button onClick={handleSelectAllButton}>Toggle Boxes</button>
+
+  const handleUndoButton = () => {
+    store.undo()
+  }
+
+  const handleRedoButton = () => {
+    store.redo()
+  }
 
   return (
     <div className="toolbar">
       <ToastContainer />
       <button onClick={handleAddButton}>Add Box</button>
       <button onClick={handleRemoveButton}>Remove Boxes</button>
-      <input type="color" onChange={handleColorInput} disabled={selectedBoxes.length === 0} />
+      <button onClick={handleUndoButton}>Undo</button>
+      <button onClick={handleRedoButton}>Redo</button>
+      <input type="color" onChange={handleColorInput} disabled={noSelectedBoxes} />
       <span>{selectedBoxes.length > 0 ? `${selectedBoxes.length} boxes are selected` : 'No box selected'}</span>
     </div>
   )
