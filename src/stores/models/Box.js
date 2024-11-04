@@ -15,7 +15,7 @@ export const BoxModel = types
       if (!hasParent(self)) return false
       const mainStore = getParent(self, 2)
 
-      return mainStore.selectedBox === self
+      return mainStore.selectedBoxes.includes(self)
     },
   }))
   .actions((self) => ({

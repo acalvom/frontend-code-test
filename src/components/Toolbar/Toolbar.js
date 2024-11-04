@@ -5,7 +5,8 @@ import { showToast, TOAST } from '../../utils/toastMessages'
 import './Toolbar.css'
 
 export const Toolbar = observer(({ store }) => {
-  const { selectedBox, cursorPosition, boxes } = store;
+  const { selectedBoxes, cursorPosition, boxes } = store
+  const noSelectedBoxes = selectedBoxes.length === 0
 
   const handleAddButton = () => {
     const { x, y } = cursorPosition
@@ -18,26 +19,28 @@ export const Toolbar = observer(({ store }) => {
     const noBoxes = boxes.length === 0
 
     if (noBoxes) return showToast(TOAST.NO_BOXES)
-    if (!selectedBox) return showToast(TOAST.NO_SELECTED_BOX)
+    if (noSelectedBoxes) return showToast(TOAST.NO_SELECTED_BOXES)
 
-    store.removeBox(selectedBox)
-    showToast(TOAST.REMOVED_BOX)
+    store.removeSelection()
+    showToast(TOAST.REMOVED_BOXES)
   }
 
   const handleColorInput = (e) => {
-    if (!selectedBox) return showToast(TOAST.NO_SELECTED_BOX)
     const color = e.target.value
+    if (noSelectedBoxes) return showToast(TOAST.NO_SELECTED_BOXES)
 
-    store.selectedBox.changeColor(color)
+    store.setSelectionColor(color)
   }
+
+  // TODO handleSelectAllButton       <button onClick={handleSelectAllButton}>Toggle Boxes</button>
 
   return (
     <div className="toolbar">
       <ToastContainer />
       <button onClick={handleAddButton}>Add Box</button>
-      <button onClick={handleRemoveButton}>Remove Box</button>
-      <input type="color" onChange={handleColorInput} disabled={!selectedBox} />
-      <span>{selectedBox ? `${selectedBox.name} is selected` : 'No box selected'}</span>
+      <button onClick={handleRemoveButton}>Remove Boxes</button>
+      <input type="color" onChange={handleColorInput} disabled={selectedBoxes.length === 0} />
+      <span>{selectedBoxes.length > 0 ? `${selectedBoxes.length} boxes are selected` : 'No box selected'}</span>
     </div>
   )
 })

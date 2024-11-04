@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import interact from 'interactjs'
+import { store } from '../../stores/store'
 
 export const useDraggableBox = (boxRef, box) => {
   useEffect(() => {
@@ -12,12 +13,14 @@ export const useDraggableBox = (boxRef, box) => {
           restriction: 'parent',
         }),
       ],
+
       listeners: {
         move(event) {
-          const boxLeft = box.left + event.dx
-          const boxTop = box.top + event.dy
+          const { dx, dy } = event
+          const selfMove = () => box.move(box.left + dx, box.top + dy)
+          const groupMove = () => store.moveSelection(dx, dy)
 
-          box.move(boxLeft, boxTop)
+          box.isSelected ? groupMove() : selfMove()
         },
       },
     })

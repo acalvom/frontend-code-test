@@ -1,6 +1,5 @@
 import React, { useRef } from 'react'
 import { observer } from 'mobx-react'
-import { getRandomColor } from '../../utils'
 import { useDraggableBox } from '../../hooks'
 
 export const BoxDraggable = observer((props) => {
@@ -14,7 +13,7 @@ export const BoxDraggable = observer((props) => {
     width,
     height,
     transform: `translate(${left}px, ${top}px)`,
-    border: isSelected ? `2px dotted ${getRandomColor()}` : 'none',
+    border: isSelected ? '3px dotted #424855FF' : 'none',
   }
 
   return (
