@@ -1,5 +1,6 @@
 import { getSnapshot, onAction } from 'mobx-state-tree'
 import { createBox } from './BoxActions'
+import { undoManager } from '../models/MainStore'
 
 export const MainStoreKey = 'MainStore'
 
@@ -29,11 +30,13 @@ export const MainStoreActions = (self) => {
   }
 
   const moveSelection = (left, top) => {
-    self.selectedBoxes.forEach((box) => {
-      const boxLeft = box.left + left
-      const boxTop = box.top + top
+    undoManager.withoutUndo(() => {
+      self.selectedBoxes.forEach((box) => {
+        const boxLeft = box.left + left
+        const boxTop = box.top + top
 
-      box.move(boxLeft, boxTop)
+        box.move(boxLeft, boxTop)
+      })
     })
   }
 
@@ -59,6 +62,14 @@ export const MainStoreActions = (self) => {
     }
   }
 
+  const undo = () => {
+    if (undoManager.canUndo) undoManager.undo()
+  }
+
+  const redo = () => {
+    if (undoManager.canRedo) undoManager.redo()
+  }
+
   const setupActionListener = () => {
     onAction(self, (call) => {
       if (call.type !== 'saveToLocalStorage') {
@@ -77,6 +88,8 @@ export const MainStoreActions = (self) => {
     saveToLocalStorage,
     loadFromLocalStorage,
     initializeStore,
+    undo,
+    redo,
     setupActionListener,
   }
 }
